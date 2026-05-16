@@ -1,9 +1,41 @@
 <html>
+  <head>
+    <script>
+      async function add() {
+        const a = document.getElementById("first").value;
+        const b = document.getElementById("second").value;
+        const res = await fetch("http://localhost:3000/sum/" + a + "/" + b);
+        const json = await res.json();
+        document.getElementById("response").innerHTML = json.ans;
+      }
+      async function sub() {
+        const a = document.getElementById("first").value;
+        const b = document.getElementById("second").value;
+
+        console.log(a, b);
+
+        const res = await fetch("http://localhost:3000/sub", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            a: a,
+            b: b,
+          }),
+        });
+
+        const json = await res.json();
+
+        document.getElementById("response").innerHTML = json.ans;
+      }
+    </script>
+  </head>
   <body>
-    <input type="text" placeholder="first number" />
-    <input type="text" placeholder="second number" />
-    <button>Add</button>
-    <button>Sub</button>
+    <input id="first" type="text" placeholder="first number" />
+    <input type="text" id="second" placeholder="second number" />
+    <button onclick="add()">Add</button>
+    <button onclick="sub()">Sub</button>
     <button>Div</button>
     <button>Mul</button>
     <div id="response"></div>

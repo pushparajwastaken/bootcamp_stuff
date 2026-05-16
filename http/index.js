@@ -1,9 +1,11 @@
 //http server that supports 4 routes
 const express = require("express");
 const app = express();
+app.use(express.json());
 app.get("/", function (req, res) {
-  res.sendFile("C:\Users\Asus\Videos\b\http\index.html");
+  res.sendFile("C:/Users/Asus/Videos/b/http/index.html");
 });
+
 app.get("/sum/:a/:b", function (req, res) {
   const a = parseInt(req.params.a);
   const b = parseInt(req.params.b);
@@ -11,9 +13,9 @@ app.get("/sum/:a/:b", function (req, res) {
     ans: a + b,
   });
 });
-app.get("/sub", function (req, res) {
-  const a = parseInt(req.query.a);
-  const b = parseInt(req.query.b);
+app.post("/sub", function (req, res) {
+  const a = parseInt(req.body.a);
+  const b = parseInt(req.body.b);
   res.json({
     ans: a - b,
   });
