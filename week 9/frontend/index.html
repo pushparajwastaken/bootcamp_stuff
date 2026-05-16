@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script>
+      async function addNote() {
+        const note = document.getElementById("note").value;
+        const res = await fetch("http://localhost:3000/notes", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            note: note,
+          }),
+        });
+
+        const json = await res.json();
+      }
+    </script>
+  </head>
+  <body>
+    <div style="display: flex">
+      <div id="displayNote">Loading....</div>
+      <div>
+        <input type="text" name="" id="note" /><button onclick="addNote()">
+          create new note
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
