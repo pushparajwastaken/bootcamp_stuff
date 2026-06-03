@@ -1,5 +1,6 @@
 const express = require("express");
 const { Pool } = require("pg");
+const bcrypt = require("bcrypt");
 const pool = new Pool({
   connectionString: "sfdsdgsdfsdfs",
 });
@@ -11,9 +12,10 @@ app.post("/sign-up", async (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
+  const hashedPassword = await bcrypt.hash(password, 10);
   const response = await pool.query(
     `INSERT INTO users (username,email,password) VALUES($1,$2,$3)RETURNING id  );`,
-    [username, email, password],
+    [username, email, hashedPassword],
   );
   res.json({
     message: "Signup Done",
